@@ -10,15 +10,12 @@ module Resque
       end
 
       def after_perform_history(*args)
-        Resque.redis.rpush(HISTORY_SET_NAME, {"class"=>"#{self}",
+        Resque.redis.lpush(HISTORY_SET_NAME, {"class"=>"#{self}",
                                               "args"=>args,
                                               "time"=>Time.now.strftime("%Y-%m-%d %H:%M")
         }.to_json)
 
-        if Resque.redis.llen(HISTORY_SET_NAME) > maximum_history_size
-          Resque.redis.lpop(HISTORY_SET_NAME)
-        end
-
+        Resque.redis.ltrim(HISTORY_SET_NAME, 0, maximum_history_size)
       end
 
     end
