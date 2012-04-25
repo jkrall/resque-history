@@ -24,7 +24,7 @@ module ResqueHistory
         end
 
         get '/history/:id' do
-          erb File.read(ResqueHistory::Server.erb_path('history_details.erb')), :locals => id
+          erb File.read(ResqueHistory::Server.erb_path('history_details.erb'))
         end
 
         post "/history/clear" do
