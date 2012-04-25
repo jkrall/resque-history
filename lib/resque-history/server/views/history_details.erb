@@ -1,0 +1,32 @@
+<% id = params[:id].to_i %>
+<% history = Resque.redis.lindex(Resque::Plugins::History::HISTORY_SET_NAME, id)%>
+<% j = JSON.parse(history) %>
+
+<h1 class='wi'>Job history</h1>
+
+<p class='intro'>Showing Item #<%=id%> &mdash; <a href="<%=u 'history' %>">Back to Job History list</a></p>
+
+<table class='queues1'>
+  <tr>
+    <th>Job</th>
+  </tr>
+  <tr>
+    <td class='queue'><%= j["class"] %></td>
+  </tr>
+  <tr>
+    <th>Arguments</th>
+    <th>Time</th>
+  </tr>
+  <tr>
+    <td class='args'><%= j["args"] %></td>
+  </tr>
+</table>
+  <tr>
+    <th>Time</th>
+  </tr>
+  <tr>
+    <td class='args'><%= j["time"] %></td>
+  </tr>
+</table>
+</table>
+

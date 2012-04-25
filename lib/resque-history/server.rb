@@ -23,6 +23,10 @@ module ResqueHistory
           erb File.read(ResqueHistory::Server.erb_path('history.erb'))
         end
 
+        get '/history/:id' do
+          erb File.read(ResqueHistory::Server.erb_path('history_details.erb')), :locals => id
+        end
+
         post "/history/clear" do
           Resque.reset_history
           redirect u('history')

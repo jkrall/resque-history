@@ -20,11 +20,11 @@
     <th>Arguments</th>
     <th>Time</th>
   </tr>
-  <% history.each do |history| %>
+  <% history.each_with_index do |history, i| %>
       <% j = JSON.parse(history) %>
       <tr>
         <td class='queue'><%= j["class"] %></td>
-        <td class='args'><%= j["args"] %></td>
+        <td class='args'><%= j["args"].to_s[0,20] %> &mdash; <a href='<%= u "history/#{start+i}" %>'>details</a></td>
         <td class='args'><%= j["time"] %></td>
       </tr>
   <% end %>
